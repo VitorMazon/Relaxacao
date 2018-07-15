@@ -32,10 +32,15 @@ void condContorno(double **M, int idim, int jdim, double xi, double xf, double y
 	hx=(xf-xi)/jdim;
 	hy=(yf-yi)/idim;
 	
+	for(i=0; i<idim; i++) 
+		for(j=0; j<jdim; j++) {
+			M[i][j]=0;
+		}
+	
 	t=xi;
 	for(i=0; i<idim; i++) {
 		M[i][0]=t*t;
-		M[i][jdim-1]= pow((t-2),2);
+		M[i][jdim-1]=pow((t-2),2);
 		t+=hx;
 	}
 	
@@ -85,7 +90,7 @@ int main(int argc, char **argv) {
 	int idim, jdim, it, i;
 	double **L, err, xi, xf, yi, yf;
 
-	//condiçoes iniciais
+	//Dominio
 	xi=0;
 	xf=1;
 	yi=0;
@@ -100,6 +105,7 @@ int main(int argc, char **argv) {
 		L[i]=(double *)malloc(jdim*sizeof(double *));
 		
 	condContorno(L, idim, jdim, xi, xf, yi, yf);
+	//imprime(L, idim, jdim);
 	it=relax(L, idim, jdim, err);
 	imprime(L, idim, jdim);
 	printf("# %d iterações\n", it);
