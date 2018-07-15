@@ -85,6 +85,7 @@ int main(int argc, char **argv) {
 	int idim, jdim, it, i;
 	double **L, err, xi, xf, yi, yf;
 	
+	//Dominio
 	xi=1;
 	xf=2;
 	yi=0;
