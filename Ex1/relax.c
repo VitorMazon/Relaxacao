@@ -24,6 +24,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
+#include <time.h>
 
 void condContorno(double **M, int idim, int jdim, double xi, double xf, double yi, double yf) {
 	int i, j;
@@ -89,7 +90,8 @@ void imprime(double **N, int x, int y){
 int main(int argc, char **argv) {
 	int idim, jdim, it, i;
 	double **L, err, xi, xf, yi, yf;
-
+	clock_t begin = clock();
+	
 	//Dominio
 	xi=0;
 	xf=1;
@@ -109,6 +111,12 @@ int main(int argc, char **argv) {
 	it=relax(L, idim, jdim, err);
 	imprime(L, idim, jdim);
 	printf("# %d iterações\n", it);
+	
+	clock_t end = clock();
+	double tempo = (double)(end - begin) / CLOCKS_PER_SEC;
+	printf("# tempo = %lf\n", tempo);
+	
+	free(L);
 	return 0;
 }
 
